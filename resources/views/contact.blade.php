@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>This is contact</h1>
+    <h1>halo saya <?= $nama ?></h1>
+    <p> email saya adalah <?= $email?></p>
 
 @endsection

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +26,11 @@ Route::get('/about',function (){
     return view('about');
 });
 Route::get('/contact', function(){
-    return view('contact');
+    return view('contact',[
+        "nama"=> "damar",
+        "email"=> "damar@gmail.com"
+    ]);
 });
+
+Route::get('/post', [PostController::class, 'index']);
+Route::get('/user', [userController::class, 'index']);
