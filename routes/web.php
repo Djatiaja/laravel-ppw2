@@ -33,4 +33,7 @@ Route::get('/contact', function(){
 });
 
 Route::get('/post', [PostController::class, 'index']);
+
+
+
 Route::get('/user', [userController::class, 'index']);
