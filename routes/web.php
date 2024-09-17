@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\blogController;
+use App\Http\Controllers\bukuController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\userController;
+use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +40,7 @@ Route::get('/post', [PostController::class, 'index']);
 
 
 Route::get('/user', [userController::class, 'index']);
+
+Route::get('/blogs',[blogController::class, 'index']);
+
+Route::get('/buku', [bukuController::class, 'index']);
