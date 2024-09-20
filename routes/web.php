@@ -44,3 +44,14 @@ Route::get('/user', [userController::class, 'index']);
 Route::get('/blogs',[blogController::class, 'index']);
 
 Route::get('/buku', [bukuController::class, 'index']);
+
+Route::get('/buku/tambah', [bukuController::class, 'create']);
+
+Route::post('/buku/tambah', [bukuController::class, 'store'])->name('buku.store');
+
+Route::get("buku/update/{id}", [bukuController::class, 'update']);
+
+Route::post("buku/update/{id}", [bukuController::class, 'save'])->name('buku.update');
+
+Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
+    
