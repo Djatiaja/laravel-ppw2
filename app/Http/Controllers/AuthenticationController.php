@@ -27,10 +27,9 @@ class AuthenticationController extends Controller
 
         if(Auth::attempt(['email'=>$data["email"], "password"=>$data["password"]], $request->remember?true:false)){
             $request->session()->regenerate();
-            return redirect('\dashboard');
+            return redirect()->route('dashboard');
         }
-
-        dd(true);
+        return redirect()->route('login')->withErrors("credential salah");
     }   
 
     function store(Request $request)
