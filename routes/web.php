@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\blogController;
 use App\Http\Controllers\bukuController;
 use App\Http\Controllers\PostController;
@@ -22,36 +23,30 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function(){
-    return view("login");
-});
-Route::get('/about',function (){
+Route::get('/about', function () {
     return view('about');
 });
-Route::get('/contact', function(){
-    return view('contact',[
-        "nama"=> "damar",
-        "email"=> "damar@gmail.com"
-    ]);
+
+Route::controller(AuthenticationController::class)->group(function () {
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login/verify', 'verify')->name('login.verify');
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register/store', 'store')->name('register.store');
 });
 
-Route::get('/post', [PostController::class, 'index']);
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [bukuController::class, 'index']);
 
+    Route::get('/buku/tambah', [bukuController::class, 'create']);
 
-Route::get('/user', [userController::class, 'index']);
+    Route::post('/buku/tambah', [bukuController::class, 'store'])->name('buku.store');
 
-Route::get('/blogs',[blogController::class, 'index']);
+    Route::get("buku/update/{id}", [bukuController::class, 'update']);
 
-Route::get('/buku', [bukuController::class, 'index']);
+    Route::post("buku/update/{id}", [bukuController::class, 'save'])->name('buku.update');
 
-Route::get('/buku/tambah', [bukuController::class, 'create']);
+    Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
 
-Route::post('/buku/tambah', [bukuController::class, 'store'])->name('buku.store');
-
-Route::get("buku/update/{id}", [bukuController::class, 'update']);
-
-Route::post("buku/update/{id}", [bukuController::class, 'save'])->name('buku.update');
-
-Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
-    
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+});
