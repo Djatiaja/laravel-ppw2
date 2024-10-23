@@ -39,6 +39,7 @@ class AuthenticationController extends Controller
             "email" => ["required", "email", "unique:users"],
             "name" => ['required'],
             "password" => ["required", "confirmed", "min:8"],
+            "age"=>['required', "between:0,120"]
         ]);
 
         $data["password"] =Hash::make($data["password"]);   

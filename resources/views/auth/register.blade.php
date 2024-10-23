@@ -22,6 +22,11 @@
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="age">Age</label>
+                        <input id="age" class="form-control form-control-lg" name="age" type="number" min="0" max="120"/>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label" for="typePasswordX-2">Password</label>
                         <input type="password" id="typePasswordX-2" class="form-control form-control-lg"
                             name="password" />
