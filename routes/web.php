@@ -36,7 +36,7 @@ Route::controller(AuthenticationController::class)->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [bukuController::class, 'index']);
+    Route::get('/dashboard', [bukuController::class, 'index'])->name('dashboard');
 
     Route::get('/buku/tambah', [bukuController::class, 'create']);
 
