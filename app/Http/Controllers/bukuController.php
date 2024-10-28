@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\book;
-use App\Models\buku;
 use Illuminate\Http\Request;
 
 class bukuController extends Controller
 {
+    function __construct(){
+        $this->middleware('auth');
+    }
+
     function index(){
         $data = book::orderByDesc('judul')->get();
         $jumlah_data = book::count();

@@ -1,11 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\blogController;
 use App\Http\Controllers\bukuController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\userController;
-use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,16 +33,10 @@ Route::controller(AuthenticationController::class)->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [bukuController::class, 'index'])->name('dashboard');
-
     Route::get('/buku/tambah', [bukuController::class, 'create']);
-
     Route::post('/buku/tambah', [bukuController::class, 'store'])->name('buku.store');
-
     Route::get("buku/update/{id}", [bukuController::class, 'update']);
-
     Route::post("buku/update/{id}", [bukuController::class, 'save'])->name('buku.update');
-
-    Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
-
+    Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete')->middleware(['is_Admin']);
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
