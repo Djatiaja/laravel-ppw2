@@ -20,15 +20,17 @@
 
 
 @section('content')
-<div class="mt-16">
+<div class="mt-3">
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
         {{ $message }}
     </div>
-    @elseif ($message = Session::get('error')) <div class="alert alert-danger" role="alert">
+    @elseif ($message = Session::get('error')) 
+    <div class="alert alert-danger" role="alert">
         {{ $message }}
     </div>
     @endif
+</div>
     <h1>Home</h1>
     <p>This is the home page</p>
 @endsection

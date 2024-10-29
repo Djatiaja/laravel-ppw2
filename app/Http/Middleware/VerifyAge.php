@@ -15,9 +15,9 @@ class VerifyAge
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->age<18){
-            return redirect('/')->withError("Umur anda dibawah 18 tahun");
-        }
+        if ($request->age < 18) {
+            return redirect('/')->withError("Maaf anda tidak dapat memasuki page ini karena umur anda dibawah 18 tahun");
+            }
 
         return $next($request);
     }

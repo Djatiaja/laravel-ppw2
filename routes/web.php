@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return view('about');
-});
+})->middleware("verifyAge");
 
 Route::controller(AuthenticationController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
@@ -31,12 +31,12 @@ Route::controller(AuthenticationController::class)->group(function () {
 });
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [bukuController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', "is_Admin"])->group(function () {
+    Route::get('/dashboard', [bukuController::class, 'index'])->name('dashboard')->middleware("is_Admin");
     Route::get('/buku/tambah', [bukuController::class, 'create']);
     Route::post('/buku/tambah', [bukuController::class, 'store'])->name('buku.store');
     Route::get("buku/update/{id}", [bukuController::class, 'update']);
     Route::post("buku/update/{id}", [bukuController::class, 'save'])->name('buku.update');
-    Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete')->middleware(['is_Admin']);
+    Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
