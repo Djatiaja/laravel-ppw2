@@ -19,5 +19,8 @@ class book extends Model
         'penulis',
         'harga',
         'tanggal_terbit',
+        "sampul_buku",
+        "thumbnail",
+        "square",
     ];
 }

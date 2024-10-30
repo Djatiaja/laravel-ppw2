@@ -11,33 +11,46 @@
 
 <body>
     <div class="container mt-4">
-        <form action="{{route('buku.update', $buku->id)}}" class="d-flex justify-content-center mt-5 gap-4" method="post">
+        <form action="{{ route('buku.update', $buku->id) }}" class="mx-auto mt-5 p-4 border rounded shadow-sm"
+            style="max-width: 600px;" method="post" enctype="multipart/form-data">
             @csrf
-            <table>
-                <tr>
-                    <td><label for="judul">Judul </label></td>
-                    <td><input type="text" name="judul" id="judul" value="{{$buku->judul}}"></td>
-                </tr>
-                <tr>
-                    <td><label for="penulis">Penulis </label></td>
-                    <td><input type="text" name="penulis" id="penulis" value="{{$buku->penulis}}"></td>
-                </tr>
-                <tr>
-                    <td><label for="harga">Harga </label></td>
-                    <td><input type="number" inputmode="numeric" name="harga" id="harga" min="0"
-                            value="{{$buku->harga}}"></td>
-                </tr>
-                <tr>
-                    <td><label for="tanggal_terbit">Tanggal Terbit </label></td>
-                    <td><input type="date" name="tanggal_terbit" id="tanggal_terbit" value="{{$buku->tanggal_terbit}}">
-                    </td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Simpan</button></td>
-                </tr>
-            </table>
+            <div class="mb-3">
+                <label for="judul" class="form-label">Judul</label>
+                <input type="text" class="form-control" name="judul" id="judul" value="{{ $buku->judul }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="penulis" class="form-label">Penulis</label>
+                <input type="text" class="form-control" name="penulis" id="penulis" value="{{ $buku->penulis }}"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="harga" class="form-label">Harga</label>
+                <input type="number" class="form-control" name="harga" id="harga" min="0" value="{{ $buku->harga }}"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="tanggal_terbit" class="form-label">Tanggal Terbit</label>
+                <input type="date" class="form-control" name="tanggal_terbit" id="tanggal_terbit"
+                    value="{{ $buku->tanggal_terbit }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="sampul_buku" class="form-label">Sampul Buku</label>
+                <input type="file" class="form-control" name="sampul_buku" id="sampul_buku" accept="image/*">
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
         </form>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFfIDc5QVnRATaCFL3w7JOntg6E2R9G/rW3r56rsIMVbvbNf0YG5tCtRS5" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>

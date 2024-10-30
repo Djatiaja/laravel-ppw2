@@ -11,28 +11,37 @@
 
 <body>
     <div class="container mt-4">
-        <form action="{{route('buku.store')}}" class="d-flex justify-content-center mt-5 gap-4" method="post" >
+@if($errors->any())
+{{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
+
+        <form action="{{route('buku.store')}}" class="d-flex justify-content-center mt-5 gap-4" method="post" enctype="multipart/form-data">
             @csrf
             <table>
                 <tr>
                     <td><label for="judul">Judul </label></td>
-                    <td><input type="text" name="judul" id="judul" ></td>
+                    <td><input type="text" name="judul" id="judul" required></td>
                 </tr>
                 <tr>
                     <td><label for="penulis">Penulis </label></td>
-                    <td><input type="text" name="penulis" id="penulis"  ></td>
+                    <td><input type="text" name="penulis" id="penulis" required></td>
                 </tr>
                 <tr>
                     <td><label for="harga">Harga </label></td>
-                    <td><input type="number" inputmode="numeric" name="harga" id="harga" min="0"  ></td>
+                    <td><input type="number" inputmode="numeric" name="harga" id="harga" min="0" required></td>
                 </tr>
                 <tr>
                     <td><label for="tanggal_terbit">Tanggal Terbit </label></td>
-                    <td><input type="date" name="tanggal_terbit" id="tanggal_terbit" ></td>
+                    <td><input type="date" name="tanggal_terbit" id="tanggal_terbit" required></td>
                 </tr>
-                <tr >
+                <tr>
+                    <td><label for="sampul_buku"> </label>Sampul Buku</td>
+                    <td><input type="file" name="sampul_buku" id="sampul_buku" accept="image/*"></td>
+                </tr>
+                <tr>
                     <td><button type="submit">Simpan</button></td>
                 </tr>
+
             </table>
         </form>
     </div>

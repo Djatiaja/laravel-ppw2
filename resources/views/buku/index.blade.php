@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('style')
-<style>
-    .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-    }
+    <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
 
-    .alert-danger {
-        background-color: #f2dede; 
-        border-color: #ebccd1;
-        color: #a94442;
-    }
-</style>
+        .alert-danger {
+            background-color: #f2dede;
+            border-color: #ebccd1;
+            color: #a94442;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -48,6 +48,9 @@
                         Tahun Terbit
                     </th>
                     <th>
+                        sampul buku
+                    </th>
+                    <th>
                         Aksi
                     </th>
                 </tr>
@@ -61,12 +64,20 @@
                         <td> {{ 'Rp. ' . number_format($buku->harga) }}</td>
                         <td> {{ \Carbon\Carbon::parse($buku->tanggal_terbit)->format('d-m-Y') }}</td>
                         <td>
+                            @if (isset($buku->sampul_buku))
+                                <img src="{{ asset('storage/' . $buku->sampul_buku) }}" alt="" width="50"
+                                    height="50">
+                            @endif
+                        </td>
+                        <td>
                             <form action="{{ route('buku.delete', $buku->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-danger">Delete</button>
                             </form>
-
+                            <form action="{{ 'buku/update/'. $buku->id }}" method="GET">
+                                <button type="submit" class="btn-secondary">update</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -74,7 +85,7 @@
                     <td colspan="4">
                         Jumlah buku
                     </td>
-                    <td colspan="2">
+                    <td colspan="2">    
                         {{ $jumlah_data }}
                     </td>
                 </tr>

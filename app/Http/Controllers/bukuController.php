@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 
 class bukuController extends Controller
 {
@@ -23,12 +26,32 @@ class bukuController extends Controller
     }
 
     function store(Request $request)  {
-        $buku = new book();
-        $buku ->judul = $request->input('judul');
-        $buku ->penulis = $request->input('penulis');
-        $buku ->harga = $request->input('harga');
-        $buku ->tanggal_terbit = $request->input('tanggal_terbit');
-        $buku->save();
+        $data = $request->validate([
+            "judul"=>["required", "max:60"],
+            "penulis"=>["required", "max:60"],
+            "harga"=>["required", "numeric"],
+            "tanggal_terbit"=>["required", "date"],
+            "sampul_buku"=>["nullable", "image"]
+        ]);
+
+        if($request->has("sampul_buku")){
+            $original_name = $request->file("sampul_buku")->getClientOriginalName();
+            $client_file_name = pathinfo($original_name, PATHINFO_FILENAME);
+            $client_file_extention = pathinfo($original_name, PATHINFO_EXTENSION);
+            $date = time();
+            $file_name = $client_file_name. "_" . $date .".". $client_file_extention;
+            $path=$request->file("sampul_buku")->storeAs("buku", $file_name);
+            $data["sampul_buku"]= $path;
+        }
+        book::create([
+            "judul"=>$data["judul"],
+            "penulis"=>$data["penulis"],
+            "harga"=>$data["harga"],
+            "tanggal_terbit"=>$data["tanggal_terbit"],
+            "sampul_buku"=> isset($data["sampul_buku"]) ? $data["sampul_buku"] : null,
+        ]);
+
+
         return redirect('/dashboard');
     }
 
@@ -46,11 +69,37 @@ class bukuController extends Controller
     }
 
     function save(Request $request, $id){
+        $data = $request->validate([
+            "judul" => ["required", "max:60"],
+            "penulis" => ["required", "max:60"],
+            "harga" => ["required", "numeric"],
+            "tanggal_terbit" => ["required", "date"],
+            "sampul_buku" => ["nullable", "image"]
+        ]);
         $buku = book::find($id);
-        $buku ->judul = $request->input('judul');
-        $buku ->penulis = $request->input('penulis');
-        $buku ->harga = $request->input('harga');
-        $buku ->tanggal_terbit = $request->input('tanggal_terbit');
+
+        if ($request->has("sampul_buku")) {
+
+            if($buku->sampul_buku){
+                try {
+                    if (File::exists("storage/".$buku->sampul_buku)) {
+                        File::delete("storage/" . $buku->sampul_buku);
+                    }
+                } catch (\Throwable $th) {
+                    return back()->withError("gagal menyimpan");
+                }
+            }
+
+            $original_name = $request->file("sampul_buku")->getClientOriginalName();
+            $client_file_name = pathinfo($original_name, PATHINFO_FILENAME);
+            $client_file_extention = pathinfo($original_name, PATHINFO_EXTENSION);
+            $date = time();
+            $file_name = $client_file_name . "_" . $date . "." . $client_file_extention;
+            $path = $request->file("sampul_buku")->storeAs("buku", $file_name);
+            $data["sampul_buku"] = $path;
+        }
+
+        $buku->update($data);
         $buku->save();
         
         return redirect('/dashboard');
