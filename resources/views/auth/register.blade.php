@@ -5,7 +5,7 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <form class="card-body p-5 h-auto" action="{{route('register.store')}}" method="post">
+                <form class="card-body p-5 h-auto" action="{{route('register.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <h3 class="mb-3 w-100 text-center">Sign Up</h3>
 
@@ -17,13 +17,18 @@
 
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label" for="name">Name</label>
-                        <input  id="name" class="form-control form-control-lg"
-                            name="name" />
+                        <input id="name" class="form-control form-control-lg" name="name" />
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label" for="age">Age</label>
-                        <input id="age" class="form-control form-control-lg" name="age" type="number" min="0" max="120"/>
+                        <input id="age" class="form-control form-control-lg" name="age" type="number" min="0"
+                            max="120" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="photo">Photo</label>
+                        <input id="photo" class="form-control form-control-lg" name="photo" type="file" />
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">
