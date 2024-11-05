@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Redirect;
 
 class bukuController extends Controller
 {
-    function __construct(){
-        $this->middleware('auth');
-    }
+
 
     function index(){
         $data = book::orderByDesc('judul')->get();

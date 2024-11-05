@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\bukuController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,15 @@ Route::controller(AuthenticationController::class)->group(function () {
     Route::post('/login/verify', 'verify')->name('login.verify');
     Route::get('/register', 'register')->name('register');
     Route::post('/register/store', 'store')->name('register.store');
+});
+
+Route::controller(UserController::class)->middleware(['auth', "is_Admin"])->prefix("/dashboard-user")->group(function(){
+    Route::get("/", "index")->name("dashboard-user");
+    Route::get("/create", "create")->name("dashboard-user.create");
+    Route::post("/store", "store")->name("dashboard-user.store");
+    Route::delete("/delete/{id}", "delete")->name("dashboard-user.delete");
+    Route::get("/update/{id}", "update")->name("dashboard-user.update");
+    Route::post("/update/{id}", "save")->name("dashboard-user.save");
 });
 
 

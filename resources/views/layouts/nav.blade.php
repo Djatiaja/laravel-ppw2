@@ -10,6 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('dashboard-user')}}">User</a>
+                </li>
                 <li class="nav-item me-auto">
                     <a class="nav-link" href="/about">About</a>
                 </li>
