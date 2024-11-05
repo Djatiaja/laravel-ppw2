@@ -56,6 +56,15 @@ class UserController extends Controller
     function delete($id)
     {
         $user = User::find($id);
+        if ($user->photo) {
+            try {
+                if (File::exists("storage/" . $user->photo)) {
+                    File::delete("storage/" . $user->photo);
+                }
+            } catch (\Throwable $th) {
+                return back()->withError("gagal menghapus user");
+            }
+        }
         $user->delete();
         return redirect()->route("dashboard-user")->with("success", "user berhasil dihapus");
     }
