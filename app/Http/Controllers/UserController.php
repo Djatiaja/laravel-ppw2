@@ -96,6 +96,7 @@ class UserController extends Controller
                 } catch (\Throwable $th) {
                     return back()->withError("gagal menyimpan");
                 }
+                
             }
 
             $original_name = $request->file("photo")->getClientOriginalName();
@@ -106,6 +107,7 @@ class UserController extends Controller
             $path = $request->file("photo")->storeAs("user", $file_name);
             $data["photo"] = $path;
         }
+
         $user->update([
             "name" => $data["name"],
             "age" => $data["age"],

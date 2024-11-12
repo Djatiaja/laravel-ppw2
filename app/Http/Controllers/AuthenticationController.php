@@ -44,16 +44,15 @@ class AuthenticationController extends Controller
 
         $data["password"] =Hash::make($data["password"]);
 
-
-        if ($request->has("photo")) {
-            $original_name = $request->file("photo")->getClientOriginalName();
-            $client_file_name = pathinfo($original_name, PATHINFO_FILENAME);
-            $client_file_extention = pathinfo($original_name, PATHINFO_EXTENSION);
-            $date = time();
-            $file_name = $client_file_name . "_" . $date . "." . $client_file_extention;
-            $path = $request->file("photo")->storeAs("user", $file_name);
-            $data["photo"] = $path;
-        }
+            if ($request->has("photo")) {
+                $original_name = $request->file("photo")->getClientOriginalName();
+                $client_file_name = pathinfo($original_name, PATHINFO_FILENAME);
+                $client_file_extention = pathinfo($original_name, PATHINFO_EXTENSION);
+                $date = time();
+                $file_name = $client_file_name . "_" . $date . "." . $client_file_extention;
+                $path = $request->file("photo")->storeAs("user", $file_name);
+                $data["photo"] = $path;
+            }
 
         User::create($data);
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\bukuController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,14 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return view('about');
-})->middleware("verifyAge");
+});
+
+Route::get('/galeri', [PostController::class, "galeri"])->name("galeri");
+Route::get('/galeri/create', [PostController::class, "create"])->name("post.create");
+Route::post('/galeri/create/store', [PostController::class, "store"])->name("post.store");
+Route::get('/galeri/update/{id}', [PostController::class, "update"])->name("post.update");
+Route::put('/galeri/update/save/{id}', [PostController::class, "save"])->name("post.save");
+Route::delete('/galeri/delete/{id}', [PostController::class, "delete"])->name("post.delete");
 
 Route::controller(AuthenticationController::class)->group(function () {
     Route::get('/login', 'login')->name('login');

@@ -56,6 +56,14 @@ class bukuController extends Controller
     function delete($id){
         $buku = book::find($id);
         if($buku !== null){
+            try {
+                if (File::exists("storage/" . $buku->sampul_buku)) {
+                    File::delete("storage/" . $buku->sampul_buku);
+                }
+            } catch (\Throwable $th) {
+                return back()->withError("gagal menyimpan");
+            }
+            
             $buku->delete();
         }
         return redirect('/dashboard');
