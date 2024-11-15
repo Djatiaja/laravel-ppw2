@@ -14,6 +14,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard-user') }}">User</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard-email') }}">Email</a>
+                    </li>
                 @endif
                 <li class="nav-item ">
                     <a class="nav-link" href="/galeri">Galeri</a>

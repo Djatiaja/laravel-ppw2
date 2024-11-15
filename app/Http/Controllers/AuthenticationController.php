@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\NotifyRegistered;
+use App\Mail\RegisteredUserEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthenticationController extends Controller
 {
@@ -54,7 +57,9 @@ class AuthenticationController extends Controller
                 $data["photo"] = $path;
             }
 
-        User::create($data);
+        $user = User::create($data);
+
+        dispatch( new NotifyRegistered($user));
 
         return redirect('/login');
     }

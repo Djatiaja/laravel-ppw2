@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -110,6 +111,9 @@ class bukuController extends Controller
         
         return redirect('/dashboard');
     }
+
+
+
 }
 
 

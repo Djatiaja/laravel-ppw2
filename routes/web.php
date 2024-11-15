@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\api\bukuApiController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\bukuController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,15 @@ Route::get('/galeri/update/{id}', [PostController::class, "update"])->name("post
 Route::put('/galeri/update/save/{id}', [PostController::class, "save"])->name("post.save");
 Route::delete('/galeri/delete/{id}', [PostController::class, "delete"])->name("post.delete");
 
+Route::controller(EmailController::class)->prefix("dashboard-email")->group(function(){
+    Route::get("/", "index")->name("dashboard-email");
+    Route::get("/create", "create")->name("dashboard-email.create");
+    Route::post("/send", "send")->name("dashboard-email.send");
+});
+
+
+
+
 Route::controller(AuthenticationController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login/verify', 'verify')->name('login.verify');
@@ -58,3 +69,6 @@ Route::middleware(['auth', "is_Admin"])->group(function () {
     Route::delete("buku/delete/{id}", [bukuController::class, 'delete'])->name('buku.delete');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
+
+
+
