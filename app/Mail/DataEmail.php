@@ -32,7 +32,7 @@ class DataEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Pemberitahuan (karena tidak ada tempe)',
+            subject: 'Pemberitahuan Toko Buku',
         );
     }
 
