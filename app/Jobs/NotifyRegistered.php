@@ -21,13 +21,13 @@ class NotifyRegistered implements ShouldQueue
     public function __construct(User $user)
     {
         $this->$user = $user;
-    }   
+    }
 
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-        Mail::to("percobaancoding483@gmail.com")->send( new RegisteredUserEmail($this->user));
+        Mail::to($this->user->email)->send(new RegisteredUserEmail($this->user));
     }
 }

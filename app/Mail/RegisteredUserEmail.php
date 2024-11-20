@@ -21,7 +21,7 @@ class RegisteredUserEmail extends Mailable
     public function __construct(User $user)
     {
         $this->user = $user;
-    }   
+    }
 
     /**
      * Get the message envelope.

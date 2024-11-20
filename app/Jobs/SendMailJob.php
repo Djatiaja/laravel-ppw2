@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\DataEmail;
+use App\Mail\DataMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +16,6 @@ class SendMailJob implements ShouldQueue
 
     public $data;
 
-
     public function __construct($data)
     {
         $this->data = $data;
@@ -24,12 +23,11 @@ class SendMailJob implements ShouldQueue
 
     public function handle(): void
     {
-        Mail::to("percobaancoding483@gmail.com")->send(new DataEmail(
+        Mail::to($this->data["email"])->send(new DataMail(
             $this->data["name"],
-            "percobaancoding483@gmail.com",
+            $this->data["email"],
             $this->data["subject"],
             $this->data["body"]
         ));
-        
     }
 }

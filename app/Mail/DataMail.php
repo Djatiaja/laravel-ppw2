@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DataEmail extends Mailable
+class DataMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,9 +32,9 @@ class DataEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Pemberitahuan Toko Buku',
+            subject: $this->subject,
         );
-    }
+    }   
 
     /**
      * Get the message content definition.

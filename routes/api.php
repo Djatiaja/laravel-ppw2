@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get("/books  ", [bukuApiController::class, "index"]);
-Route::post("/book", [bukuApiController::class, "store"]);
+Route::get("/books", [bukuApiController::class, "index"]);
+Route::post("/book/store", [bukuApiController::class, "store"]);
