@@ -13,6 +13,102 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/greet": {
+            "get": {
+                "tags": [
+                    "greeting"
+                ],
+                "summary": "Greet the user",
+                "description": "-",
+                "operationId": "ca8e5fbaa99427d6d1a7af07cf7d3f6a",
+                "parameters": [
+                    {
+                        "name": "firstname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "halo John Doe"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gallery": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "description": "Get all posts with picture",
+                "operationId": "3af6297e2666b80fb444eba234776377",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Impedit omnis vitae"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Nemo est velit sapie"
+                                            },
+                                            "picture": {
+                                                "type": "string",
+                                                "example": "posts/FZN9JEP3UYagtjMluLK8y74bMy0jWzNVzZb5Cz3i.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2024-11-05T19:07:54.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2024-11-05T19:07:54.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/books": {
             "get": {
                 "tags": [
@@ -172,6 +268,14 @@
         }
     },
     "tags": [
+        {
+            "name": "greeting",
+            "description": "greeting"
+        },
+        {
+            "name": "Gallery",
+            "description": "Gallery"
+        },
         {
             "name": "books",
             "description": "books"

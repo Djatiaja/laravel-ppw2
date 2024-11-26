@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\api\ApiGalleryController;
 use App\Http\Controllers\api\bukuApiController;
 use App\Http\Controllers\bukuController;
+use App\Http\Controllers\GreetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get("/greets", [GreetController::class, "index"]);
+Route::get("/gallery", [ApiGalleryController::class, "getAll"]);
+
 Route::get("/books", [bukuApiController::class, "index"]);
 Route::post("/book/store", [bukuApiController::class, "store"]);
